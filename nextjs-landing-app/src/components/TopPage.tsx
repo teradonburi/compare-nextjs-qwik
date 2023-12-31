@@ -30,7 +30,14 @@ export default function TopPage() {
       `}}/>
       </Head>
       <main>
-        TODO
+        <div style={{background: 'grey', width: '100vw', height: '100vh'}}>
+          <div style={{margin: 'auto'}}>First View</div>
+        </div>
+        <div style={{background: 'black', color: 'white'}}>
+          {Array(100000).fill(null).map((_, i) => (
+            <div key={i}>Hello World</div>
+          ))}
+        </div>
       </main>
     </>
   )

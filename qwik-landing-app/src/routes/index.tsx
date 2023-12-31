@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$, useStyles$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from './styles.css?inline';
@@ -14,11 +14,29 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
+
+
 export default component$(() => {
   useStyles$(styles);
+  const visible = useSignal(false);
+
+  // hide until visible
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    visible.value = true;
+  });
   return (
     <main>
-      TODO
+      <div style={{background: 'grey', width: '100vw', height: '100vh'}}>
+        <div style={{margin: 'auto'}}>First View</div>
+      </div>
+      {visible.value && (
+        <div style={{background: 'black', color: 'white'}}>
+          {Array(100000).fill(null).map((_, i) => (
+            <div key={i}>Hello World</div>
+          ))}
+        </div>
+      )}
     </main>
   );
 });
@@ -32,3 +50,4 @@ export const head: DocumentHead = {
     },
   ],
 };
+
