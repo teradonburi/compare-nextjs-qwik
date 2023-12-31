@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$, useStyles$ } from "@builder.io/qwik";
+import { component$, useSignal, useTask$, useStyles$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from './styles.css?inline';
@@ -22,7 +22,7 @@ export default component$(() => {
 
   // hide until visible
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
+  useTask$(() => {
     visible.value = true;
   });
   return (
