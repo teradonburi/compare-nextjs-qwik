@@ -30,8 +30,8 @@ export default function TopPage() {
       `}}/>
       </Head>
       <main>
-        <div style={{background: 'grey', width: '100vw', height: '100vh'}}>
-          <div style={{margin: 'auto'}}>First View</div>
+        <div style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
+          <div style={{margin: 'auto', width: 'fit-content'}}>First View</div>
         </div>
         <div style={{background: 'black', color: 'white'}}>
           {Array(100000).fill(null).map((_, i) => (

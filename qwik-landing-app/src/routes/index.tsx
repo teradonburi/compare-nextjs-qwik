@@ -1,4 +1,4 @@
-import { component$, useSignal, useTask$, useStyles$ } from "@builder.io/qwik";
+import { Slot, component$, useSignal, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from './styles.css?inline';
@@ -18,28 +18,45 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 
 export default component$(() => {
   useStyles$(styles);
+  return (
+    <main>
+      <div style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
+        <div style={{margin: 'auto', width: 'fit-content'}}>First View</div>
+      </div>
+      <div style={{
+        background: 'black', 
+        color: 'white', 
+      }}>
+        {Array(10).fill(null).map((_, i) => (
+          <Container key={i}>
+            {Array(10000).fill(null).map((_, j) => (
+              <div key={j} style={{
+                contentVisibility: 'auto',
+                containIntrinsicSize: '0 10px',
+              }}>
+                Hello World
+              </div>
+            ))}
+          </Container>
+        ))}
+      </div>
+    </main>
+  );
+});
+
+const Container = component$(() => {
   const visible = useSignal(false);
 
   // hide until visible
   // eslint-disable-next-line qwik/no-use-visible-task
-  useTask$(() => {
+  useVisibleTask$(() => {
     visible.value = true;
   });
-  return (
-    <main>
-      <div style={{background: 'grey', width: '100vw', height: '100vh'}}>
-        <div style={{margin: 'auto'}}>First View</div>
-      </div>
-      {visible.value && (
-        <div style={{background: 'black', color: 'white'}}>
-          {Array(100000).fill(null).map((_, i) => (
-            <div key={i}>Hello World</div>
-          ))}
-        </div>
-      )}
-    </main>
-  );
-});
+
+  if(!visible.value) return null
+
+  return <Slot />
+})
 
 export const head: DocumentHead = {
   title: "Create Qwik App",
