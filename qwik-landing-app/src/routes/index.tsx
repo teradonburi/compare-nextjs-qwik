@@ -1,7 +1,8 @@
-import { Slot, component$, useSignal, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useSignal, useStyles$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from './styles.css?inline';
+import List from "~/components/list";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -18,48 +19,18 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 
 export default component$(() => {
   useStyles$(styles);
+  const signal = useSignal(false)
+
   return (
     <main>
-      <div style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
+      <div onLoad$={() => signal.value = true} style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
         <div style={{margin: 'auto', width: 'fit-content'}}>First View</div>
       </div>
-      <div style={{
-        background: 'black', 
-        color: 'white', 
-      }}>
-        {Array(10).fill(null).map((_, i) => (
-          <Container key={i}>
-            {Array(10000).fill(null).map((_, j) => (
-              <div 
-                key={j} 
-                style={{
-                  contentVisibility: 'auto',
-                  containIntrinsicSize: '0 10px',
-                }}
-              >
-                Hello World
-              </div>
-            ))}
-          </Container>
-        ))}
-      </div>
+      {signal.value && <List />}
     </main>
   );
 });
 
-const Container = component$(() => {
-  const visible = useSignal(false);
-
-  // hide until visible
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    visible.value = true;
-  });
-
-  if(!visible.value) return null
-
-  return <Slot />
-})
 
 export const head: DocumentHead = {
   title: "Create Qwik App",
