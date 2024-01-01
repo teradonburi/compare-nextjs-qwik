@@ -30,10 +30,13 @@ export default component$(() => {
         {Array(10).fill(null).map((_, i) => (
           <Container key={i}>
             {Array(10000).fill(null).map((_, j) => (
-              <div key={j} style={{
-                contentVisibility: 'auto',
-                containIntrinsicSize: '0 10px',
-              }}>
+              <div 
+                key={j} 
+                style={{
+                  contentVisibility: 'auto',
+                  containIntrinsicSize: '0 10px',
+                }}
+              >
                 Hello World
               </div>
             ))}

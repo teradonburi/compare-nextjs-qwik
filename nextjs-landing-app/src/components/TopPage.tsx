@@ -35,7 +35,15 @@ export default function TopPage() {
         </div>
         <div style={{background: 'black', color: 'white'}}>
           {Array(100000).fill(null).map((_, i) => (
-            <div key={i}>Hello World</div>
+            <div 
+              key={i}                 
+              style={{
+                contentVisibility: 'auto',
+                containIntrinsicSize: '0 10px',
+              }}
+            >
+              Hello World
+            </div>
           ))}
         </div>
       </main>
