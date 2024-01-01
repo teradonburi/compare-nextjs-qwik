@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$ } from "@builder.io/qwik";
+import { $, component$, useOnDocument, useSignal, useStyles$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from './styles.css?inline';
@@ -16,17 +16,27 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 };
 
 
-
+function useInLoad() {
+  const onload = useSignal(false);
+  useOnDocument(
+    'load',
+    $(() => {
+      onload.value = true;
+    })
+  );
+  return onload.value;
+}
+ 
 export default component$(() => {
   useStyles$(styles);
-  const signal = useSignal(false)
+  const onload = useInLoad()
 
   return (
     <main>
-      <div onLoad$={() => signal.value = true} style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
+      <div style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
         <div style={{margin: 'auto', width: 'fit-content'}}>First View</div>
       </div>
-      {signal.value && <List />}
+      {onload && <List />}
     </main>
   );
 });
