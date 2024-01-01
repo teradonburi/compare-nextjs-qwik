@@ -16,18 +16,19 @@ export default function TopPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <style dangerouslySetInnerHTML={{__html: `
-        * {
-          box-sizing: border-box;
-          padding: 0;
-          margin: 0;
-        }
-        
-        html,
-        body {
-          max-width: 100vw;
-          overflow-x: hidden;
-        }
-      `}}/>
+          * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+          }
+          
+          html,
+          body {
+            max-width: 100vw;
+            overflow-x: hidden;
+          }
+        `}}
+        />
       </Head>
       <main>
         <div style={{display: 'flex', background: 'grey', width: '100vw', height: '100vh', contain: 'strict'}}>
