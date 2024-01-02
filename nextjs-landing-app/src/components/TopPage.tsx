@@ -40,7 +40,7 @@ export default function TopPage() {
               key={i}                 
               style={{
                 contentVisibility: 'auto',
-                containIntrinsicSize: '0 10px',
+                containIntrinsicSize: '0 30px',
               }}
             >
               Hello World{i}
