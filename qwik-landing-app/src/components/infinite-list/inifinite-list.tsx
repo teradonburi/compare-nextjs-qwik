@@ -12,16 +12,16 @@ type InfiniteListProps = {
 };
 
 export default component$<InfiniteListProps>(({ loadMore, onLoadMore$ }) => {
-	const listSig = useSignal<Element>();
+	const ref = useSignal<Element>();
 
 	// eslint-disable-next-line qwik/no-use-visible-task
 	useVisibleTask$(() => {
-		if (listSig.value) {
+		if (ref.value) {
 			const intersectionObserver = new IntersectionObserver(
 				([{ isIntersecting }]) => isIntersecting && onLoadMore$(),
 				{ rootMargin: '150%' }
 			);
-			intersectionObserver.observe(listSig.value);
+			intersectionObserver.observe(ref.value);
 		}
 	});
 
@@ -29,7 +29,7 @@ export default component$<InfiniteListProps>(({ loadMore, onLoadMore$ }) => {
 		<>
 			<Slot />
 			{loadMore && (
-				<div ref={listSig}>
+				<div ref={ref}>
 					<Slot name='loading' />
 				</div>
 			)}

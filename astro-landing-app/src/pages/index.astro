@@ -1,6 +1,6 @@
 ---
+import GridLayout from "../components/GridLayout";
 import Layout from "../layouts/Layout.astro";
-import Content from "../components/Content";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -17,12 +17,7 @@ import Content from "../components/Content";
       <div style={{ margin: "auto", width: "fit-content" }}>First View</div>
     </div>
     <div style={{ background: "black", color: "white" }}>
-      {
-        [...new Array(1000).keys()].map((_, i) => (
-          // https://docs.astro.build/ja/reference/directives-reference/#clientvisible
-          <Content num={i} client:visible />
-        ))
-      }
+      <GridLayout client:only="react" />
     </div>
   </main>
 </Layout>
