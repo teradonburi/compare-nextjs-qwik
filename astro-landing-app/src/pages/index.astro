@@ -19,7 +19,9 @@ import Content from "../components/Content";
     <div style={{ background: "black", color: "white" }}>
       {
         [...new Array(1000).keys()].map((_, i) => (
-          <Content num={i} client:visible />
+          // https://docs.astro.build/ja/reference/directives-reference/#clientvisible
+          // https://docs.astro.build/ja/reference/directives-reference/#clientonly
+          <Content num={i} client:only="react" client:visible />
         ))
       }
     </div>
