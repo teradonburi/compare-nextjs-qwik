@@ -42,28 +42,30 @@ export default component$(() => {
         <div style={{margin: 'auto', width: 'fit-content'}}>First View</div>
       </div>
       {onload && 
-      <InfiniteList
-				loadMore={loadMore.value}
-				onLoadMore$={$(() => {
-					itemsSig.value = [...itemsSig.value, ...new Array(PER_PAGE).keys()];
-					loadMore.value = itemsSig.value.length < 100000;
-				})}
-			>
-				{itemsSig.value.map((_, key) => (
-					<div 
-            key={key} 
-            style={{
-              contentVisibility: 'auto',
-              containIntrinsicSize: '0 30px',
-            }}
-          >
-            Hello World{key}
+      <div style={{background: 'black', color: 'white'}}>
+        <InfiniteList
+          loadMore={loadMore.value}
+          onLoadMore$={$(() => {
+            itemsSig.value = [...itemsSig.value, ...new Array(PER_PAGE).keys()];
+            loadMore.value = itemsSig.value.length < 100000;
+          })}
+        >
+          {itemsSig.value.map((_, key) => (
+            <div 
+              key={key} 
+              style={{
+                contentVisibility: 'auto',
+                containIntrinsicSize: '0 30px',
+              }}
+            >
+              Hello World{key}
+            </div>
+          ))}
+          <div q:slot='loading' >
+            Loading...
           </div>
-				))}
-				<div q:slot='loading' >
-          Loading...
-				</div>
-			</InfiniteList>}
+        </InfiniteList>
+      </div>}
     </main>
   );
 });
