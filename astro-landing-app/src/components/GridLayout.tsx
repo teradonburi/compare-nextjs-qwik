@@ -18,7 +18,15 @@ const GridLayout: React.FC = () => {
       }}
     >
       {listItems.map((_, i) => (
-        <div key={i}>Hello World{i}</div>
+        <div 
+          key={i} 
+          style={{
+            contentVisibility: 'auto',
+            containIntrinsicSize: '0 30px',
+          }}
+        >
+          Hello World{i}
+        </div>
       ))}
     </InfiniteList>
   )
