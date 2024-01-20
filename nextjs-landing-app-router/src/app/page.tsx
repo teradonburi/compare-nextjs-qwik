@@ -1,5 +1,6 @@
-import GridLayout from "@/component/GridLayout";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
+const GridLayout = React.lazy(() => import('@/component/GridLayout'));
+
 
 export default function Home() {
   return (
